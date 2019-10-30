@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    </nav>
+
+    <main role="main" class="container">
+      <div class="starter-template">
+           <table class="table table-striped">
+               <caption>Pasta</caption>
+
+          <tbody>
+            {% for pasta in pastas %}
+            <tr>
+              <td>${{pasta.name}}</td>
+              <td>{{pasta.price|intcomma}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+{% endblock %}
