@@ -1,9 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
+from .models import Pasta
 
 
 def index(request):
-    return render(request, 'index.html', )
+    pastas = Pasta.objects.all()
+    return render(request, 'index.html', {'pastas': pastas})
 
 
 def register(request):

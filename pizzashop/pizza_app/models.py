@@ -8,15 +8,21 @@ class PinocchioMenuItem(models.Model):
     )
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    item_size = models.CharField(max_length=1, choices=SIZES, default='S')
+    item_size = models.CharField(max_length=1, choices=SIZES, null=True)
+
+    class Meta:
+        abstract = True
 
 
 class Pasta(PinocchioMenuItem):
-    pass
+
+    def __str__(self):
+        return self.name
 
 
 class Salad(PinocchioMenuItem):
-    pass
+    def __str__(self):
+        return self.name
 
 
 class Topping(models.Model):
@@ -28,11 +34,13 @@ class Pizza(PinocchioMenuItem):
 
 
 class Subs(PinocchioMenuItem):
-    pass
+    def __str__(self):
+        return self.name
 
 
 class DinnerPlatters(PinocchioMenuItem):
-    pass
+    def __str__(self):
+        return self.name
 
 
 class CustomerOrder(models.Model):
