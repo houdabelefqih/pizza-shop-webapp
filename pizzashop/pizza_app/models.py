@@ -1,14 +1,13 @@
+from django.core.validators import MaxLengthValidator
 from django.db import models
+from rest_framework.compat import MaxValueValidator
 
 
 class PinocchioMenuItem(models.Model):
-    SIZES = (
-        ('S', 'Small'),
-        ('L', 'Large'),
-    )
+
     name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-    item_size = models.CharField(max_length=1, choices=SIZES, null=True)
+    small_price = models.DecimalField(max_digits=5, decimal_places=2)
+    large_price = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
     class Meta:
         abstract = True
@@ -30,7 +29,13 @@ class Topping(models.Model):
 
 
 class Pizza(PinocchioMenuItem):
+    PIZZA_TYPES = (
+        ('R', 'Regular'),
+        ('S', 'Sicilian'),
+    )
+    max_toppings = models.PositiveSmallIntegerField(default= 0, validators=[MaxValueValidator(9), MaxValueValidator(9)])
     toppings = models.ManyToManyField(Topping)
+    pizza_type = models.CharField(max_length=1, choices=PIZZA_TYPES, null=True)
 
 
 class Subs(PinocchioMenuItem):
