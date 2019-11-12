@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    </nav>
+
+    <main role="main" class="container">
+           <div class="container-fluid h-100">
+    <div class="row justify-content-left align-items-center h-100">
+        <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+          <h2>Start my pizza order</h2>
+            <form method = "post">
+                    <div class="form-group">
+                            {% csrf_token %}
+                            {{ toppings_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Add to cart</button>
+                    </div>
+               </form>
+        </div>
+    </div>
+</div>
+    </main>
+
+{% endblock %}

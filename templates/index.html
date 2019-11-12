@@ -7,51 +7,66 @@
     </nav>
 
     <main role="main" class="container">
-      <div class="starter-template">
-           <table class="table table-sm">
-               <thead class="thead-light">
-               <tr>
-                  <th colspan="3">Regular Pizza</th>
-                </tr>
-               <tbody>
-                {% for regular_pizza in regular_pizzas %}
-                <tr>
-                  <td>{{pizza.name}}</td>
-                  <td>${{pasta.price|intcomma}}</td>
-                    <td>+</td>
-                </tr>
-                {% endfor %}
-              </tbody>
+           <div class="container-fluid h-100">
+                        <a href="{% url 'start-order' %}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Start ordering PIZZAS!!!</a>
+            </div>
 
-               <thead class="thead-light">
-               <tr>
-                  <th colspan="3">Pasta</th>
-                </tr>
-               <tbody>
-                {% for pasta in pastas %}
-                <tr>
-                  <td>{{pasta.name}}</td>
-                  <td>${{pasta.price|intcomma}}</td>
-                    <td>+</td>
-                </tr>
-                {% endfor %}
-              </tbody>
+            <div class="starter-template">
+                <table class="table table-lg">
+                  <thead class="thead-light">
+                       <tr>
+                          <th colspan="100%">Regular Pizza</th>
+                        </tr>
+                       <tr>
+                          <td></td>
+                          <td>Small</td>
+                          <td>Large</td>
+                        </tr>
+                       <tbody>
+                        {% for regular_pizza in regular_pizzas %}
+                        <tr>
+                          <td>{{regular_pizza.name}}</td>
+                            <td>${{regular_pizza.small_price|intcomma}} </td>
+                          <td>${{regular_pizza.large_price|intcomma}} </td>
 
-               <thead class="thead-light">
-               <tr>
-                  <th colspan="3">Salads</th>
-                </tr>
-               <tbody>
-                {% for salad in salads %}
-                <tr>
-                  <td>{{salad.name}}</td>
-                  <td>${{salad.price|intcomma}}</td>
-                    <td>+</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-        </table>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+
+                       <thead class="thead-light">
+                       <tr>
+                          <th colspan="100%">Sicilian Pizza</th>
+                        </tr>
+                       <tr>
+                          <td></td>
+                          <td>Small</td>
+                          <td>Large</td>
+                        </tr>
+                       <tbody>
+                        {% for sicilian_pizza in sicilian_pizzas %}
+                        <tr>
+                          <td>{{sicilian_pizza.name}}</td>
+                          <td>${{sicilian_pizza.small_price|intcomma}} </td>
+                            <td>${{sicilian_pizza.large_price|intcomma}} </td>
+
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+
+                       <thead class="thead-light">
+                       <tr>
+                          <th colspan="100%">Toppings</th>
+                        </tr>
+                       <tbody>
+                        {% for topping in toppings %}
+                        <tr>
+                          <td>{{topping.topping_name}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
       </div>
+
     </main>
 
 {% endblock %}

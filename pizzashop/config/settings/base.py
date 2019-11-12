@@ -30,7 +30,10 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'bootstrap4',
     'pizza_app.apps.PizzaAppConfig',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -43,6 +46,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
 
 TEMPLATES = [
     {
