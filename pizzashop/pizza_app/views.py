@@ -13,28 +13,24 @@ def index(request):
     sicilian_pizzas = pizzas.filter(pizza_type='S')
 
     return render(request, 'index.html', context={'regular_pizzas': regular_pizzas,
-                                                      'sicilian_pizzas': sicilian_pizzas,
-                                                      'toppings': toppings,
+                                                  'sicilian_pizzas': sicilian_pizzas,
+                                                  'toppings': toppings,
                                                   })
 
 
 def add_to_cart(request):
-    pass
-
-
-def start_order(request):
-
     if request.method == 'GET':
         toppings_form = ToppingsForm()
-        return render(request, 'order.html', context={ "toppings_form": toppings_form})
+        return render(request, 'order.html', context={"toppings_form": toppings_form})
 
     elif request.method == 'POST':
         toppings_form = ToppingsForm(request.POST)
+
         if toppings_form.is_valid():
             toppings_form.save()
             return redirect('index')
 
-        return render(request, 'index.html', context={"toppings_form": toppings_form})
+    return render(request, 'index.html', context={"toppings_form": toppings_form})
 
 
 @login_required
@@ -58,4 +54,4 @@ def register(request):
             registration_form.save()
             return redirect('index')
 
-        return render(request, 'registration/register.html', context={"registration_form": registration_form})
+    return render(request, 'registration/register.html', context={"registration_form": registration_form})

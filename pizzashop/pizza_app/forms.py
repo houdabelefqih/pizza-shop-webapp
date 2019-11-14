@@ -26,12 +26,13 @@ class RegistrationForm(UserCreationForm):
 class ToppingsForm(ModelForm):
     toppings = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
-        queryset=Topping.objects.all())
+        queryset=Topping.objects.all(),)
 
     class Meta:
         model = CartItem
         fields = [
             'pizza',
+            'pizza_size',
             'quantity',
             'toppings',
 
