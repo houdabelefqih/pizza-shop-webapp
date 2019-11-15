@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.signals import m2m_changed
 from django.shortcuts import render, get_list_or_404, redirect
-from .models import Topping, Pizza, Cart
+from .models import Topping, Pizza, Cart, CartItem
 from .forms import RegistrationForm, ToppingsForm
 
 
@@ -49,6 +49,13 @@ def display_cart(request):
     cart.items.all()
     context = {'cart': cart}
     return render(request, 'cart.html', context=context)
+
+
+@login_required
+def delete_cart_item(request, cart_item_id):
+    CartItem.objects.filter(id=cart_item_id).delete()
+
+    return redirect('display-cart')
 
 
 @login_required

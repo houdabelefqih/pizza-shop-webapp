@@ -18,7 +18,8 @@
                           <th colspan="100%">Cart for {{user.username}} </th>
                         </tr>
                        <tr>
-                          <td>Item</td>
+                          <td>Pizza</td>
+                          <td>Toppings</td>
                           <td>Quantity</td>
                           <td>Subtotal</td>
                         </tr>
@@ -32,6 +33,9 @@
                             </td>
                           <td>{{item.quantity}}</td>
                           <td>${{item.subtotal|intcomma}} </td>
+                          <td> <a href="{% url 'delete-cart-item' cart_item_id=item.id %}" class="btn btn-danger" role="button" aria-pressed="true">
+                              Delete</a>
+                          </td>
                         </tr>
                         {% endfor %}
                       </tbody>
