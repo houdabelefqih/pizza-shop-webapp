@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+from django.forms import ModelForm, CheckboxSelectMultiple
 
 from .models import Topping, CartItem
 from django import forms
@@ -24,10 +24,6 @@ class RegistrationForm(UserCreationForm):
 
 
 class ToppingsForm(ModelForm):
-    toppings = forms.ModelMultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple,
-        queryset=Topping.objects.all(),)
-
     class Meta:
         model = CartItem
         fields = [
@@ -38,3 +34,6 @@ class ToppingsForm(ModelForm):
 
         ]
 
+        widgets = {
+            'toppings': CheckboxSelectMultiple,
+        }

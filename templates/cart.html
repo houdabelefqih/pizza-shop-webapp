@@ -1,18 +1,39 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
-
 {% load humanize %}
 
 {% block content %}
 
-<div class="container-fluid h-100">
-    <div class="row justify-content-center align-items-center h-100">
-        <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
-          <h2>Cart:</h2>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    </nav>
 
-        </div>
-    </div>
-</div>
+    <main role="main" class="container">
+           <div class="container-fluid h-100">
+                        <a href="{% url 'add-order' %}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Start ordering PIZZAS!!!</a>
+            </div>
+
+            <div class="starter-template">
+                <table class="table table-lg">
+                  <thead class="thead-light">
+                       <tr>
+                          <th colspan="100%">Cart for {{user.username}} </th>
+                        </tr>
+                       <tr>
+                          <td>Item</td>
+                          <td>Quantity</td>
+                          <td>Subtotal</td>
+                        </tr>
+                       <tbody>
+                        {% for item in cart.items.all %}
+                        <tr>
+                          <td>{{item.pizza}}</td>
+                          <td>{{item.quantity}}</td>
+                          <td>${{item.subtotal|intcomma}} </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+      </div>
+
+    </main>
 
 {% endblock %}
-

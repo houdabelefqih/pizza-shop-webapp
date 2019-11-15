@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models.signals import m2m_changed
 from django.shortcuts import render, get_list_or_404, redirect
-from .models import Topping, Pizza
+from .models import Topping, Pizza, Cart
 from .forms import RegistrationForm, ToppingsForm
 
 
@@ -18,6 +19,7 @@ def index(request):
                                                   })
 
 
+@login_required()
 def add_to_cart(request):
     if request.method == 'GET':
         toppings_form = ToppingsForm()
@@ -25,9 +27,18 @@ def add_to_cart(request):
 
     elif request.method == 'POST':
         toppings_form = ToppingsForm(request.POST)
+        new_item=toppings_form.save()
 
         if toppings_form.is_valid():
-            toppings_form.save()
+            try:
+                cart_obj = Cart.objects.get(user=request.user)
+
+            except Cart.DoesNotExist:
+                cart_obj = Cart.objects.create(user=request.user)
+
+            cart_obj.items.add(new_item)
+            m2m_changed.connect(Cart.items_changed, sender=Cart.items.through)
+
             return redirect('index')
 
     return render(request, 'index.html', context={"toppings_form": toppings_form})
@@ -35,7 +46,10 @@ def add_to_cart(request):
 
 @login_required
 def display_cart(request):
-    return render(request, 'cart.html')
+    cart = Cart.objects.get(user=request.user)
+    cart.items.all()
+    context = {'cart': cart}
+    return render(request, 'cart.html', context=context)
 
 
 @login_required
