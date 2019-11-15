@@ -26,6 +26,10 @@
                         {% for item in cart.items.all %}
                         <tr>
                           <td>{{item.pizza}}</td>
+                            <td>{% for topping in item.toppings.all %}
+                                    {{topping}} |
+                                {% endfor %}
+                            </td>
                           <td>{{item.quantity}}</td>
                           <td>${{item.subtotal|intcomma}} </td>
                         </tr>

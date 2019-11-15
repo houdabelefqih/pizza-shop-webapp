@@ -27,7 +27,7 @@ def add_to_cart(request):
 
     elif request.method == 'POST':
         toppings_form = ToppingsForm(request.POST)
-        new_item=toppings_form.save()
+        new_item = toppings_form.save()
 
         if toppings_form.is_valid():
             try:
@@ -37,7 +37,6 @@ def add_to_cart(request):
                 cart_obj = Cart.objects.create(user=request.user)
 
             cart_obj.items.add(new_item)
-            m2m_changed.connect(Cart.items_changed, sender=Cart.items.through)
 
             return redirect('index')
 
